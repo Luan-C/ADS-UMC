@@ -35,3 +35,34 @@ def create_user(name, email, password):
     except Error as e:
         print(f"Erro ao conectar ao banco de dados: {e}")
         return False, 'Erro ao criar usuário. Tente novamente.'
+
+def validate_login(email, password):
+    try:
+        connection = db_connection()
+        cursor = connection.cursor()
+
+        cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+        user = cursor.fetchone()
+
+        if not user:
+            cursor.close()
+            connection.close()
+            return False, 'Usuário não encontrado!'
+
+        # Verifica se a senha fornecida corresponde à senha criptografada
+        hashed_password = user[3]
+
+        if not bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
+            cursor.close()
+            connection.close()
+            return False, 'Senha incorreta!'
+
+        cursor.close()
+        connection.close()
+
+        return True, 'Login bem-sucedido!'
+
+    except Error as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        return False, 'Erro ao fazer login. Tente novamente.'
+    
