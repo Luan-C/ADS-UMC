@@ -106,3 +106,28 @@ def register_car(ticket_id, photo, brand, model, license_plate, owner_name, owne
         print(f"Erro ao conectar ao banco de dados: {e}")
         return False, 'Erro ao registrar carro. Tente novamente.'
 
+def deactivate_car(ticket_id):
+    try:
+        connection = db_connection()
+        cursor = connection.cursor()
+
+        cursor.execute("""
+            UPDATE cars
+            SET status = 'inactive'
+            WHERE ticket_id = %s AND status = 'active';
+        """, (ticket_id,))
+
+        if cursor.rowcount == 0:
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return False, "Veículo não encontrado ou já está inativo."
+
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return True, "Veículo marcado como inativo com sucesso!"
+    except Exception as e:
+        print(f"Erro ao dar baixa no veículo: {e}")
+        return False, "Erro ao atualizar o status do veículo."
+

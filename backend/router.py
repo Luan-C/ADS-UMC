@@ -1,6 +1,6 @@
 import uuid
 from flask import Blueprint, request, jsonify
-from service import create_user, register_car, validate_login
+from service import create_user, deactivate_car, register_car, validate_login
 
 user = Blueprint('user', __name__)
 car = Blueprint('car', __name__)
@@ -72,3 +72,20 @@ def register():
         'message': message,
         'payment_receipt_id': payment_receipt_id
     }), 201
+
+# Endpoint de "dar baixa" no carro
+@car.route('/update', methods=['PUT'])
+def update():
+    data = request.get_json()
+
+    if not data.get('ticket_id'):
+        return jsonify({'message': 'ticket_id é obrigatório!'}), 400
+
+    ticket_id = data['ticket_id']
+
+    success, message = deactivate_car(ticket_id)
+
+    if not success:
+        return jsonify({'message': message}), 400
+
+    return jsonify({'message': message}), 200
