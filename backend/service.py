@@ -66,3 +66,43 @@ def validate_login(email, password):
         print(f"Erro ao conectar ao banco de dados: {e}")
         return False, 'Erro ao fazer login. Tente novamente.'
     
+def validate_car_data(photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone):
+    """Valida os dados do carro antes de registrar"""
+    if not photo or not brand or not model or not license_plate or not owner_name or not owner_cpf or not owner_email or not owner_phone:
+        return False, 'Todos os campos são obrigatórios!'
+
+    return True, ''
+
+def register_car(ticket_id, photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone):
+    """Registra um carro no banco de dados após validação"""
+    try:
+        valid, message = validate_car_data(photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
+        if not valid:
+            return False, message
+
+        connection = db_connection()
+        cursor = connection.cursor()
+
+        cursor.execute('SELECT * FROM cars WHERE license_plate = %s OR owner_cpf = %s', (license_plate, owner_cpf))
+        existing_car = cursor.fetchone()
+
+        if existing_car:
+            cursor.close()
+            connection.close()
+            return False, 'Carro ou proprietário já registrado!'
+
+        cursor.execute("""
+            INSERT INTO cars (ticket_id, photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """, (ticket_id, photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone))
+        connection.commit()
+
+        cursor.close()
+        connection.close()
+
+        return True, 'Carro registrado com sucesso!'
+
+    except Exception as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        return False, 'Erro ao registrar carro. Tente novamente.'
+

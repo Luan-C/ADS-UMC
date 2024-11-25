@@ -1,7 +1,9 @@
+import uuid
 from flask import Blueprint, request, jsonify
-from service import create_user, validate_login
+from service import create_user, register_car, validate_login
 
 user = Blueprint('user', __name__)
+car = Blueprint('car', __name__)
 
 # Endpoint de Signup (cadastro de usuário)
 @user.route('/signup', methods=['POST'])
@@ -40,3 +42,29 @@ def login():
 
     return jsonify({'message': 'Login bem-sucedido!'}), 200
 
+# Endpoint de Registro de Carro
+@car.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+
+    required_fields = ['photo', 'brand', 'model', 'license_plate', 'owner_name', 'owner_cpf', 'owner_email', 'owner_phone']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'message': f'{field} é obrigatório!'}), 400
+
+    ticket_id = str(uuid.uuid4())
+    photo = data['photo']
+    brand = data['brand']
+    model = data['model']
+    license_plate = data['license_plate']
+    owner_name = data['owner_name']
+    owner_cpf = data['owner_cpf']
+    owner_email = data['owner_email']
+    owner_phone = data['owner_phone']
+
+    success, message = register_car(ticket_id, photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
+
+    if not success:
+        return jsonify({'message': message}), 400
+
+    return jsonify({'message': 'Carro registrado com sucesso!'}), 201
