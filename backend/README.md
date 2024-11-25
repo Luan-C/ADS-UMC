@@ -37,7 +37,6 @@ Payload exemplo:
 }
 ```
 
-Respostas
 Sucesso:
 ```
 {
