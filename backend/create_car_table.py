@@ -23,6 +23,7 @@ def create_car_table():
             owner_cpf VARCHAR(11) NOT NULL UNIQUE,
             owner_email VARCHAR(100) NOT NULL,
             owner_phone VARCHAR(20),
+            status VARCHAR(10) DEFAULT 'active',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         """
