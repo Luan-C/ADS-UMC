@@ -1,11 +1,9 @@
-from connect import db_connection, close_connection
+from flask import Flask
+from router import user
 
+app = Flask(__name__)
 
-def main():
-    connection = db_connection()
-    if connection:
-        close_connection(connection)
-
+app.register_blueprint(user)
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True)
