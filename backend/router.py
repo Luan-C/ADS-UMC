@@ -53,6 +53,7 @@ def register():
             return jsonify({'message': f'{field} é obrigatório!'}), 400
 
     ticket_id = str(uuid.uuid4())
+    payment_receipt_id = str(uuid.uuid4())
     photo = data['photo']
     brand = data['brand']
     model = data['model']
@@ -67,4 +68,7 @@ def register():
     if not success:
         return jsonify({'message': message}), 400
 
-    return jsonify({'message': 'Carro registrado com sucesso!'}), 201
+    return jsonify({
+        'message': message,
+        'payment_receipt_id': payment_receipt_id
+    }), 201
