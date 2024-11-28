@@ -20,7 +20,16 @@ export default function MenuScreen() {
         source={require('@/assets/images/CarManagerIcon.png')}
         style={styles.reactLogo}
       />
-      <ThemedText type="subtitle" lightColor='#FFFFFF'>Faça o login para acessar</ThemedText>
+      <TouchableOpacity onPress={handleLogin} style={styles.cadastrar}>
+        <ThemedText type="defaultSemiBold" darkColor='#00000'>CADASTRAR</ThemedText>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleLogin} style={styles.estoque}>
+        <ThemedText type="defaultSemiBold" darkColor='#00000'>ESTOQUE</ThemedText>
+      </TouchableOpacity>
+      <Image
+        source={require('@/assets/images/logout.png')}
+        style={styles.sair}
+      />
     </ThemedView>
   );
 }
@@ -36,11 +45,28 @@ const styles = StyleSheet.create({
   reactLogo: {
     height: 157,
     width: 302,
-    marginBottom: 40,
-  },
-  inputContainer: {
-    width: '100%',
     marginBottom: 20,
-    marginTop: 10,
+  },
+  cadastrar: {
+    backgroundColor: '#2B3BEB',
+    paddingVertical: 50,
+    paddingHorizontal: 120,
+    borderRadius: 10,
+    marginTop: 100,
+    alignItems: 'center',
+  },
+  estoque: {
+    backgroundColor: '#D9D9D9',
+    paddingVertical: 50,
+    paddingHorizontal: 130,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 30,
+  },
+  sair: {
+    height: 50,
+    width: 50,
+    marginTop: 140,
+    alignItems: 'flex-end',
   },
 });

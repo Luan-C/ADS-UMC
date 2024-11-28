@@ -13,6 +13,7 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     // Aqui você pode adicionar a lógica para autenticação do usuário
+    console.log('Nome:', nome);
     console.log('Email:', email);
     console.log('Password:', password);
     //router.push('/MenuScreen');
@@ -57,6 +58,10 @@ export default function LoginScreen() {
       <TouchableOpacity onPress={handleLogin} style={styles.button}>
         <ThemedText type="defaultSemiBold" lightColor='#FFFFFF'>Cadastrar</ThemedText>
       </TouchableOpacity>
+      <Image
+        source={require('@/assets/images/logout.png')}
+        style={styles.sair}
+      />
     </ThemedView>
   );
 }
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
   reactLogo: {
     height: 157,
     width: 302,
-    marginBottom: 40,
+    marginBottom: 70,
   },
   inputContainer: {
     width: '100%',
@@ -102,5 +107,11 @@ const styles = StyleSheet.create({
   },
   link: {
     color: '#007bff',
+  },
+  sair: {
+    height: 50,
+    width: 50,
+    marginTop: 187,
+    alignItems: 'flex-end',
   },
 });
