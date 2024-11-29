@@ -5,7 +5,7 @@ import Save from "../../assets/checked.png";
 import Cancel from "../../assets/cancel.png";
 import Car from "../../assets/carro.png";
 
-export default function carDashboard() {
+export default function carDetails() {
     const [ticket, setTicket] = useState('');
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
