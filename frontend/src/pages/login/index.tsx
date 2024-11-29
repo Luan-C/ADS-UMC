@@ -3,7 +3,7 @@ import { Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicato
 import { style } from "./styles";
 import Logo from "../../assets/logo.png";
 
-export default function Login() {
+export default function Login({ navigation }: { navigation: any }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -15,6 +15,8 @@ export default function Login() {
             if (!email || !password) return Alert.alert("Atenção", "Informe os campos obrigatórios");
 
             Alert.alert("Logado com sucesso");
+
+            navigation.navigate("Menu");
 
             // setTimeout(() => {
             //     Alert.alert("Logado com sucesso");
@@ -56,17 +58,17 @@ export default function Login() {
 
             <TouchableOpacity onPress={handleLogin} style={style.button}>
                 {
-                    loading ? 
+                    loading ?
                         <ActivityIndicator color={"#FFFF"} size={"small"} />
-                    :
+                        :
                         <Text style={style.buttonText}>Entrar</Text>
                 }
-                
+
             </TouchableOpacity>
 
             <View style={style.footer}>
                 <Text style={style.text}>
-                    Não tem login? <Text style={style.link}>Cadastre-se</Text>
+                    Não tem login? <Text style={style.link} onPress={() => navigation.navigate("Signup")}>Cadastre-se</Text>
                 </Text>
             </View>
 
