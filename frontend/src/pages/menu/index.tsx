@@ -5,14 +5,21 @@ import Logout from '../../assets/logout.png';
 import Logo from "../../assets/logo.png";
 
 
-export default function Menu() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Menu({ navigation }: { navigation: any }) {
+  const handleCadastrar = () => {
+    navigation.navigate('CarRegistration');
+  };
 
-  const handleLogin = () => {
-    // Aqui você pode adicionar a lógica para autenticação do usuário
-    console.log('Email:', email);
-    console.log('Password:', password);
+  // TODO: Função para navegar para a tela de estoque
+  // const handleEstoque = () => {
+  //   navigation.navigate('Inventory');
+  // };
+
+  const handleLogoff = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
   };
 
   return (
@@ -21,13 +28,14 @@ export default function Menu() {
         source={Logo}
         style={styles.logo}
       />
-      <TouchableOpacity onPress={handleLogin} style={styles.cadastrar}>
+      <TouchableOpacity onPress={handleCadastrar} style={styles.cadastrar}>
         <Text style={styles.textButton}>CADASTRAR</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleLogin} style={styles.estoque}>
+      {/* editar para handleEstoque depois! */}
+      <TouchableOpacity onPress={handleLogoff} style={styles.estoque}>
         <Text style={styles.textButton}>ESTOQUE</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleLogin}>
+      <TouchableOpacity onPress={handleLogoff}>
         <Image
           source={Logout}
           style={styles.sair}
