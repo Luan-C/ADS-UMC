@@ -55,13 +55,12 @@ export default function LoginScreen() {
         />
       </View>
 
-      <TouchableOpacity onPress={handleLogin} style={styles.button}>
-        <ThemedText type="defaultSemiBold" lightColor='#FFFFFF'>Cadastrar</ThemedText>
+      <TouchableOpacity onPress={handleLogin}>
+        <Image
+          source={require('@/assets/images/logout.png')}
+          style={styles.sair}
+        />
       </TouchableOpacity>
-      <Image
-        source={require('@/assets/images/logout.png')}
-        style={styles.sair}
-      />
     </ThemedView>
   );
 }
@@ -92,13 +91,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 10,
     marginBottom: 15,
-  },
-  button: {
-    backgroundColor: '#434DC0',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    alignItems: 'center',
   },
   footer: {
     marginTop: 20,

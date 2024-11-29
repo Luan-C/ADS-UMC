@@ -26,10 +26,12 @@ export default function MenuScreen() {
       <TouchableOpacity onPress={handleLogin} style={styles.estoque}>
         <ThemedText type="defaultSemiBold" darkColor='#00000'>ESTOQUE</ThemedText>
       </TouchableOpacity>
-      <Image
-        source={require('@/assets/images/logout.png')}
-        style={styles.sair}
-      />
+      <TouchableOpacity onPress={handleLogin}>
+        <Image
+          source={require('@/assets/images/logout.png')}
+          style={styles.sair}
+        />
+      </TouchableOpacity>
     </ThemedView>
   );
 }

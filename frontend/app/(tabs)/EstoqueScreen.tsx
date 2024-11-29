@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image } from 'react-native';
 
-const CadastroCarro = () => {
+const EstoqueScreen = () => {
   const [marca, setMarca] = useState('');
   const [modelo, setModelo] = useState('');
   const [cor, setCor] = useState('');
@@ -167,4 +167,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CadastroCarro;
+export default EstoqueScreen;

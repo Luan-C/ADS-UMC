@@ -8,13 +8,13 @@ import { useRouter } from 'expo-router';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  //const router = useRouter();
 
   const handleLogin = () => {
     // Aqui você pode adicionar a lógica para autenticação do usuário
     console.log('Email:', email);
     console.log('Password:', password);
-    router.push('/MenuScreen');
+    //router.push('/MenuScreen');
   };
 
   return (
