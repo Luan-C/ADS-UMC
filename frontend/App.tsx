@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import Login from './src/pages/login';
+import CarDashboard from './src/pages/carDashboard';
 
 export default function App() {
   return (
-      <Login/>
+      <CarDashboard/>
   );
 }
 
