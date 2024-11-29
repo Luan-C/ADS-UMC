@@ -4,7 +4,7 @@ import { styles } from "./styles";
 import Save from "../../assets/checked.png";
 import Camera from "../../assets/photo-camera.png";
 
-export default function carRegistration({ navigation }: { navigation: any }) {
+export default function CarRegistration({ navigation }: { navigation: any }) {
   const [marca, setMarca] = useState('');
   const [modelo, setModelo] = useState('');
   const [cor, setCor] = useState('');
