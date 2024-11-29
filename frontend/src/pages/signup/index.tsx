@@ -1,15 +1,54 @@
 import React, { useState } from 'react';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { styles } from './styles'
 import Logo from "../../assets/logo.png";
+import { api } from '../../server/api';
 
 export default function Signup({ navigation }: { navigation: any }) {
-  const [nome, setNome] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = () => {
-    navigation.navigate('Login');
+  const validateFields = () => {
+    if (!name || !email || !password) {
+      Alert.alert("Erro", "Todos os campos são obrigatórios.");
+      return false;
+    }
+
+    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+    if (!emailRegex.test(email)) {
+      Alert.alert("Erro", "Por favor, insira um e-mail válido.");
+      return false;
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Erro", "A senha deve ter pelo menos 6 caracteres.");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSignup = async () => {
+    if (!validateFields()) {
+      return;
+    }
+
+    setLoading(true)
+
+    try {
+      const response = await api.post("/signup", { name, email, password });
+      console.log(response.data.message);
+      Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+
+      navigation.navigate('Login');
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível realizar o cadastro. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,9 +64,9 @@ export default function Signup({ navigation }: { navigation: any }) {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Nome"
-          value={nome}
-          onChangeText={setNome}
+          placeholder="name"
+          value={name}
+          onChangeText={setName}
           keyboardType="default"
           placeholderTextColor="white"
         />
