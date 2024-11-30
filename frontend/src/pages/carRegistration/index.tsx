@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { styles } from "./styles";
 import Save from "../../assets/checked.png";
 import { api } from '../../server/api';
@@ -20,18 +20,16 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
     }
 
     try {
-      const carData = {
-        brand: brand,
-        model: model,
+      const response = await api.post("/register", {
+        brand,
+        model,
         license_plate: licensePlate,
         owner_name: ownerName,
         owner_cpf: ownerCpf,
         owner_email: ownerEmail,
         owner_phone: ownerPhone,
-      };
-
-      const response = await api.post("/register", carData);
-      Alert.alert("Sucesso", "Carro registrado com sucesso!", response.data);
+      });
+      Alert.alert("Sucesso", "Carro registrado com sucesso!");
 
       navigation.navigate('Inventory');
     } catch (error) {
