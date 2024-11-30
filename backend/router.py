@@ -43,37 +43,31 @@ def login():
     return jsonify({'message': 'Login bem-sucedido!'}), 200
 
 # Endpoint de Registro de Carro
-@car.route('/register', methods=['POST'])
+@user.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
 
-    required_fields = ['brand', 'model', 'license_plate',
-                       'owner_name', 'owner_cpf', 'owner_email', 'owner_phone']
-    for field in required_fields:
-        if field not in data:
-            return jsonify({'message': f'{field} é obrigatório!'}), 400
+    if not data.get('brand') or not data.get('model') or not data.get('license_plate') or \
+       not data.get('owner_name') or not data.get('owner_cpf') or not data.get('owner_email'):
+        return jsonify({'message': 'Todos os campos são obrigatórios!'}), 400
 
     ticket_id = str(uuid.uuid4())
-    payment_receipt_id = str(uuid.uuid4())
-
-    brand = data['brand']
-    model = data['model']
-    license_plate = data['license_plate']
-    owner_name = data['owner_name']
-    owner_cpf = data['owner_cpf']
-    owner_email = data['owner_email']
-    owner_phone = data['owner_phone']
-
+    
     success, message = register_car(
-        ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
+        ticket_id=ticket_id,
+        brand=data['brand'],
+        model=data['model'],
+        license_plate=data['license_plate'],
+        owner_name=data['owner_name'],
+        owner_cpf=data['owner_cpf'],
+        owner_email=data['owner_email'],
+        owner_phone=data.get('owner_phone', '')
+    )
 
     if not success:
-        return jsonify({'message': message}), 400
+        return jsonify({'message': message}), 500
 
-    return jsonify({
-        'message': message,
-        'payment_receipt_id': payment_receipt_id
-    }), 201
+    return jsonify({'message': 'Carro registrado com sucesso!', 'ticket_id': ticket_id}), 201
 
 # Endpoint de retornar detalhes do carro
 @car.route('/details', methods=['GET'])

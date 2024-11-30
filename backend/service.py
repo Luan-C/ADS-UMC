@@ -69,39 +69,35 @@ def validate_login(email, password):
 
 
 def register_car(ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone):
-    """Registra um carro no banco de dados após validação"""
     try:
-        valid, message = validate_car_data(
-            brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
-        if not valid:
-            return False, message
-
         connection = db_connection()
         cursor = connection.cursor()
 
-        cursor.execute(
-            'SELECT * FROM cars WHERE license_plate = %s OR owner_cpf = %s', (license_plate, owner_cpf))
+        # Verifica se o carro já existe pelo número da placa
+        cursor.execute('SELECT * FROM cars WHERE license_plate = %s', (license_plate,))
         existing_car = cursor.fetchone()
 
         if existing_car:
             cursor.close()
             connection.close()
-            return False, 'Carro ou proprietário já registrado!'
+            return False, 'Veículo com essa placa já existe!'
 
         cursor.execute("""
             INSERT INTO cars (ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """, (ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone))
+
         connection.commit()
 
         cursor.close()
         connection.close()
 
+        print("Carro registrado com sucesso!")
         return True, 'Carro registrado com sucesso!'
 
-    except Exception as e:
-        print(f"Erro ao conectar ao banco de dados: {e}")
-        return False, 'Erro ao registrar carro. Tente novamente.'
+    except Error as e:
+        print(f"Erro ao registrar o carro no banco de dados: {e}")
+        return False, 'Erro ao registrar o carro. Tente novamente.'
 
 
 def validate_car_data(brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone):
