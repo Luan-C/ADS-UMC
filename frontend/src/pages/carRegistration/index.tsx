@@ -93,6 +93,7 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
         placeholderTextColor="white"
       />
 
+
       <TouchableOpacity onPress={handleCarRegistration}>
         <Image
           source={Save}
