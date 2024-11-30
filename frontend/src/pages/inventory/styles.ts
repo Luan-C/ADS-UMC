@@ -87,4 +87,10 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  loadingText: {
+    fontSize: 18,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 20,
+  },
 });
