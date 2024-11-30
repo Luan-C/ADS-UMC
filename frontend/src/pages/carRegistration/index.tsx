@@ -33,7 +33,7 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
       const response = await api.post("/register", carData);
       Alert.alert("Sucesso", "Carro registrado com sucesso!", response.data);
 
-      // TODO: navigation.navigate('Inventory');
+      navigation.navigate('Inventory');
     } catch (error) {
       Alert.alert("Erro", "Não foi possível registrar o carro. Tente novamente.");
     }
@@ -92,7 +92,6 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
         onChangeText={setOwnerPhone}
         placeholderTextColor="white"
       />
-
       <TouchableOpacity onPress={handleCarRegistration}>
         <Image
           source={Save}
