@@ -1,37 +1,42 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image, Alert } from 'react-native';
 import { styles } from "./styles";
 import Save from "../../assets/checked.png";
-import Camera from "../../assets/photo-camera.png";
+import { api } from '../../server/api';
 
 export default function CarRegistration({ navigation }: { navigation: any }) {
-  const [marca, setMarca] = useState('');
-  const [modelo, setModelo] = useState('');
-  const [cor, setCor] = useState('');
-  const [placa, setPlaca] = useState('');
-  const [dono, setDono] = useState('');
-  const [rg, setRg] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [dataEntrada, setDataEntrada] = useState('');
-  const [funcionario, setFuncionario] = useState('');
-  const [observacao, setObservacao] = useState('');
+  const [brand, setBrand] = useState('');
+  const [model, setModel] = useState('');
+  const [licensePlate, setLicensePlate] = useState('');
+  const [ownerName, setOwnerName] = useState('');
+  const [ownerCpf, setOwnerCpf] = useState('');
+  const [ownerEmail, setOwnerEmail] = useState('');
+  const [ownerPhone, setOwnerPhone] = useState('');
 
-  const handleCadastro = () => {
-    console.log({
-      marca,
-      modelo,
-      cor,
-      placa,
-      dono,
-      rg,
-      cpf,
-      dataEntrada,
-      funcionario,
-      observacao,
-    });
+  const handleCarRegistration = async () => {
+    if (!brand || !model || !licensePlate || !ownerName || !ownerCpf || !ownerEmail || !ownerPhone) {
+      Alert.alert("Erro", "Todos os campos obrigatórios devem ser preenchidos!");
+      return;
+    }
 
-    navigation.navigate('Inventory');
+    try {
+      const carData = {
+        brand: brand,
+        model: model,
+        license_plate: licensePlate,
+        owner_name: ownerName,
+        owner_cpf: ownerCpf,
+        owner_email: ownerEmail,
+        owner_phone: ownerPhone,
+      };
 
+      const response = await api.post("/register", carData);
+      Alert.alert("Sucesso", "Carro registrado com sucesso!", response.data);
+
+      // TODO: navigation.navigate('Inventory');
+    } catch (error) {
+      Alert.alert("Erro", "Não foi possível registrar o carro. Tente novamente.");
+    }
   };
 
   return (
@@ -40,80 +45,55 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
       <TextInput
         style={styles.input}
         placeholder="Marca"
-        value={marca}
-        onChangeText={setMarca}
+        value={brand}
+        onChangeText={setBrand}
         placeholderTextColor="white"
       />
       <TextInput
         style={styles.input}
         placeholder="Modelo"
-        value={modelo}
-        onChangeText={setModelo}
-        placeholderTextColor="white"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Cor"
-        value={cor}
-        onChangeText={setCor}
+        value={model}
+        onChangeText={setModel}
         placeholderTextColor="white"
       />
       <TextInput
         style={styles.input}
         placeholder="Placa"
-        value={placa}
-        onChangeText={setPlaca}
+        value={licensePlate}
+        onChangeText={setLicensePlate}
         placeholderTextColor="white"
       />
       <TextInput
         style={styles.input}
-        placeholder="Dono"
-        value={dono}
-        onChangeText={setDono}
-        placeholderTextColor="white"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="RG"
-        value={rg}
-        onChangeText={setRg}
+        placeholder="Nome proprietário"
+        value={ownerName}
+        onChangeText={setOwnerName}
         placeholderTextColor="white"
       />
       <TextInput
         style={styles.input}
         placeholder="CPF"
-        value={cpf}
-        onChangeText={setCpf}
+        value={ownerCpf}
+        onChangeText={setOwnerCpf}
         placeholderTextColor="white"
       />
       <TextInput
         style={styles.input}
-        placeholder="Data de Entrada"
-        value={dataEntrada}
-        onChangeText={setDataEntrada}
+        placeholder="Email"
+        value={ownerEmail}
+        onChangeText={setOwnerEmail}
         placeholderTextColor="white"
       />
+
       <TextInput
         style={styles.input}
-        placeholder="Funcionario"
-        value={funcionario}
-        onChangeText={setFuncionario}
+        placeholder="Telefone"
+        value={ownerPhone}
+        onChangeText={setOwnerPhone}
         placeholderTextColor="white"
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Observacao"
-        value={observacao}
-        onChangeText={setObservacao}
-        placeholderTextColor="white"
-      />
-      <TouchableOpacity onPress={handleCadastro}>
-        <Image
-          source={Camera}
-          style={styles.camera}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleCadastro}>
+
+      <TouchableOpacity onPress={handleCarRegistration}>
         <Image
           source={Save}
           style={styles.confirmar}
