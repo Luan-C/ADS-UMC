@@ -4,6 +4,7 @@ import Login from "../pages/login";
 import Signup from "../pages/signup";
 import Menu from "../pages/menu";
 import CarRegistration from "../pages/carRegistration";
+import Inventory from "../pages/inventory";
 
 const Stack = createStackNavigator();
 
@@ -42,10 +43,10 @@ export default function Routes() {
                 component={CarRegistration}
             />
 
-            {/* <Stack.Screen
+            <Stack.Screen
                 name="Inventory"
                 component={Inventory}
-            /> */}
+            />
         </Stack.Navigator>
     );
 }

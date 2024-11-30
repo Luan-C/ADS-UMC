@@ -11,14 +11,14 @@ import {
 import { styles } from "./styles";
 import Car from "../../assets/carro1.png";
 
-export default function App() {
-  const [filter, setFilter] = useState('mais_antigo'); // Estado para controlar o filtro
-  const [searchText, setSearchText] = useState(''); // Estado para armazenar o texto de busca
+export default function Inventory() {
+  const [filter, setFilter] = useState('mais_antigo');
+  const [searchText, setSearchText] = useState('');
   const [vehicles, setVehicles] = useState([
     { id: 1, status: 'Disponível', veiculo: 'Carro A', data: '2024-11-20', placa: 'ABC1234', imagem: '../../assets/carro.png' },
     { id: 2, status: 'Manutenção', veiculo: 'Carro B', data: '2024-11-25', placa: 'DEF5678', imagem: '../../assets/carro.png' },
     { id: 3, status: 'Vendido', veiculo: 'Carro C', data: '2024-11-15', placa: 'GHI9101', imagem: '../../assets/carro.png' },
-  ]); 
+  ]);
 
   const sortedVehicles = [...vehicles]
     .filter((vehicle) =>
@@ -26,8 +26,8 @@ export default function App() {
     )
     .sort((a, b) => {
       return filter === 'mais_antigo'
-        ? new Date(a.data) - new Date(b.data) // Mais antigo primeiro
-        : new Date(b.data) - new Date(a.data); // Mais recente primeiro
+        ? new Date(a.data) - new Date(b.data)
+        : new Date(b.data) - new Date(a.data);
     });
 
   return (
@@ -41,7 +41,7 @@ export default function App() {
           placeholder="Pesquisar por placa"
           placeholderTextColor="#fff"
           value={searchText}
-          onChangeText={(text) => setSearchText(text)} // Atualiza o texto de busca dinamicamente
+          onChangeText={(text) => setSearchText(text)}
         />
       </View>
 

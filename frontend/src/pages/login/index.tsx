@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Text, View, Image, TextInput, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import { style } from "./styles";
 import Logo from "../../assets/logo.png";
+import { api } from "../../server/api";
+import { isAxiosError } from "axios";
 
 export default function Login({ navigation }: { navigation: any }) {
     const [email, setEmail] = useState('');
@@ -10,21 +12,22 @@ export default function Login({ navigation }: { navigation: any }) {
 
     async function handleLogin() {
         try {
+            if (!email || !password) {
+                return Alert.alert("Atenção", "Informe os campos obrigatórios");
+            }
+
             setLoading(true)
 
-            if (!email || !password) return Alert.alert("Atenção", "Informe os campos obrigatórios");
-
-            Alert.alert("Logado com sucesso");
+            const response = await api.post("/login", { email, password });
+            console.log(response.data.message)
 
             navigation.navigate("Menu");
-
-            // setTimeout(() => {
-            //     Alert.alert("Logado com sucesso");
-            //         setLoading(false)
-            // }, 2000)
-
         } catch (error) {
-            console.log(error);
+            if (isAxiosError(error)) {
+                console.error("Erro na API:", error.response?.data);
+            }
+
+            Alert.alert("Não foi possivel entrar no app.")
         } finally {
             setLoading(false)
         }

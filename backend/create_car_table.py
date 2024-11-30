@@ -15,7 +15,6 @@ def create_car_table():
         CREATE TABLE IF NOT EXISTS cars (
             id SERIAL PRIMARY KEY,
             ticket_id UUID NOT NULL UNIQUE,
-            photo VARCHAR(255),
             brand VARCHAR(100) NOT NULL,
             model VARCHAR(100) NOT NULL,
             license_plate VARCHAR(20) NOT NULL UNIQUE,
