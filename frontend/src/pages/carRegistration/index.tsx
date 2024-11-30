@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Image } from 'react-native';
 import { styles } from "./styles";
 import Save from "../../assets/checked.png";
-import Camera from "../../assets/photo-camera.png";
+//import Camera from "../../assets/photo-camera.png";
 
 export default function CarRegistration({ navigation }: { navigation: any }) {
   const [marca, setMarca] = useState('');
@@ -109,8 +109,8 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
       />
       <TouchableOpacity onPress={handleCadastro}>
         <Image
-          source={Camera}
-          style={styles.camera}
+          //source={Camera}
+          //style={styles.camera}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleCadastro}>

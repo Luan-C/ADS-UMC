@@ -33,13 +33,13 @@ export const styles = StyleSheet.create({
       color: '#FFFFFF',
       fontWeight: 'bold',
     },
-    camera: {
+    /*camera: {
       height: 50,
       width: 50,
       marginTop: 10,
       alignItems: 'flex-end',
       justifyContent: 'flex-end',
-    },
+    },*/
     confirmar: {
       height: 50,
       width: 50,
