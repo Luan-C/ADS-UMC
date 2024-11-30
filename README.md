@@ -1,5 +1,5 @@
 # Projeto de Software para Dispositivos Móveis
-Este projeto foi desenvolvido como parte da DPP, uma avaliação semestral da graduação em Análise e Desenvolvimento de Sistemas na Universidade de Mogi das Cruzes (UMC), requisitada pelo Professor Dr. Terigi Augusto Scardovelli.
+Este projeto foi desenvolvido como parte da DPP (Desenvolvimento Prático Profissional), uma avaliação semestral da graduação em Análise e Desenvolvimento de Sistemas na Universidade de Mogi das Cruzes (UMC), requisitada pelo Professor Dr. Terigi Augusto Scardovelli.
 
 ## Descrição
 O projeto consiste no desenvolvimento de uma aplicação voltada para dispositivos móveis, integrando Back-End, banco de dados e Front-End. Foi projetado para atender aos requisitos funcionais propostos na atividade avaliativa.
