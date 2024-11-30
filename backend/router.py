@@ -47,14 +47,14 @@ def login():
 def register():
     data = request.get_json()
 
-    required_fields = ['photo', 'brand', 'model', 'license_plate', 'owner_name', 'owner_cpf', 'owner_email', 'owner_phone']
+    required_fields = ['brand', 'model', 'license_plate', 'owner_name', 'owner_cpf', 'owner_email', 'owner_phone']
     for field in required_fields:
         if field not in data:
             return jsonify({'message': f'{field} é obrigatório!'}), 400
 
     ticket_id = str(uuid.uuid4())
     payment_receipt_id = str(uuid.uuid4())
-    photo = data['photo']
+
     brand = data['brand']
     model = data['model']
     license_plate = data['license_plate']
@@ -63,7 +63,7 @@ def register():
     owner_email = data['owner_email']
     owner_phone = data['owner_phone']
 
-    success, message = register_car(ticket_id, photo, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
+    success, message = register_car(ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
 
     if not success:
         return jsonify({'message': message}), 400
