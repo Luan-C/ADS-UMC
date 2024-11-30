@@ -1,6 +1,6 @@
 import uuid
 from flask import Blueprint, request, jsonify
-from service import create_user, deactivate_car, register_car, validate_login
+from service import create_user, deactivate_car, get_all_cars, get_car_details, register_car, validate_login
 
 user = Blueprint('user', __name__)
 car = Blueprint('car', __name__)
@@ -47,7 +47,8 @@ def login():
 def register():
     data = request.get_json()
 
-    required_fields = ['brand', 'model', 'license_plate', 'owner_name', 'owner_cpf', 'owner_email', 'owner_phone']
+    required_fields = ['brand', 'model', 'license_plate',
+                       'owner_name', 'owner_cpf', 'owner_email', 'owner_phone']
     for field in required_fields:
         if field not in data:
             return jsonify({'message': f'{field} é obrigatório!'}), 400
@@ -63,7 +64,8 @@ def register():
     owner_email = data['owner_email']
     owner_phone = data['owner_phone']
 
-    success, message = register_car(ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
+    success, message = register_car(
+        ticket_id, brand, model, license_plate, owner_name, owner_cpf, owner_email, owner_phone)
 
     if not success:
         return jsonify({'message': message}), 400
@@ -72,6 +74,23 @@ def register():
         'message': message,
         'payment_receipt_id': payment_receipt_id
     }), 201
+
+# Endpoint de retornar detalhes do carro
+@car.route('/details', methods=['GET'])
+def car_details():
+    id = request.args.get('id', type=int)
+
+    if id is not None:
+        success, message, car_details = get_car_details(id)
+        if not success:
+            return jsonify({'message': message}), 404
+        return jsonify(car_details), 200
+
+    # Busca todos os carros se o ID não for fornecido
+    success, message, cars = get_all_cars()
+    if not success:
+        return jsonify({'message': message}), 404
+    return jsonify(cars), 200
 
 # Endpoint de "dar baixa" no carro
 @car.route('/update', methods=['PUT'])
