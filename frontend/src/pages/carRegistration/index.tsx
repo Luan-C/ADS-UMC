@@ -92,6 +92,7 @@ export default function CarRegistration({ navigation }: { navigation: any }) {
         onChangeText={setOwnerPhone}
         placeholderTextColor="white"
       />
+
       <TouchableOpacity onPress={handleCarRegistration}>
         <Image
           source={Save}
