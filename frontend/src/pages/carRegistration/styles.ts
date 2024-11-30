@@ -23,28 +23,11 @@ export const styles = StyleSheet.create({
       marginBottom: 15,
       paddingLeft: 10,
     },
-    button: {
-      backgroundColor: '#007BFF',
-      padding: 10,
-      alignItems: 'center',
-      borderRadius: 5,
-    },
-    buttonText: {
-      color: '#FFFFFF',
-      fontWeight: 'bold',
-    },
-    /*camera: {
-      height: 50,
-      width: 50,
-      marginTop: 10,
-      alignItems: 'flex-end',
-      justifyContent: 'flex-end',
-    },*/
     confirmar: {
       height: 50,
       width: 50,
       marginTop: 10,
       alignItems: 'flex-end',
       justifyContent: 'flex-end',
-    },
+    }
 });
