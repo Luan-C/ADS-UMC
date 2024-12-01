@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from "react-native-vector-icons";  // Usando ícones
+import { MaterialCommunityIcons } from "react-native-vector-icons";
 import CarRegistration from "../pages/carRegistration";
 import Inventory from "../pages/inventory";
 
