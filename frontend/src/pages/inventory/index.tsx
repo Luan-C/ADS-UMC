@@ -46,23 +46,23 @@ export default function Inventory({ navigation }: { navigation: any }) {
         : new Date(b.created_at) - new Date(a.created_at);
     });
 
-    const handleDarBaixa = async (ticket_id) => {
-      try {
-        await api.put('/update', { ticket_id });
-        Alert.alert(
-          "Baixa realizada",
-          `Veículo de Ticket ID ${ticket_id} foi liberado com sucesso ✅`
-        );
-        
-        // Remover o veículo da lista local após a baixa
-        setVehicles((prevVehicles) =>
-          prevVehicles.filter((vehicle) => vehicle.ticket_id !== ticket_id)
-        );
-      } catch (error) {
-        console.error("Erro ao dar baixa no veículo:", error);
-        Alert.alert("Erro", "Não foi possível dar baixa no veículo.");
-      }
-    };
+  const handleDarBaixa = async (ticket_id) => {
+    try {
+      await api.put('/update', { ticket_id });
+      Alert.alert(
+        "Baixa realizada",
+        `Veículo de Ticket ID ${ticket_id} foi liberado com sucesso ✅`
+      );
+
+      // Remover o veículo da lista local após a baixa
+      setVehicles((prevVehicles) =>
+        prevVehicles.filter((vehicle) => vehicle.ticket_id !== ticket_id)
+      );
+    } catch (error) {
+      console.error("Erro ao dar baixa no veículo:", error);
+      Alert.alert("Erro", "Não foi possível dar baixa no veículo.");
+    }
+  };
 
   return (
     <View style={styles.container}>
